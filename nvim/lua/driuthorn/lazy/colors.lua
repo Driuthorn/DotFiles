@@ -8,9 +8,8 @@ end
 
 return {
     { "folke/tokyonight.nvim",
-        config = functiion()
+        config = function() 
             local tn = require("tokyonight")
-            
             tn.setup({
                 style = "storm",
                 transparent = true,
@@ -27,10 +26,10 @@ return {
     { "rose-pine/neovim", 
         name = "rose-pine",
         config = function() 
-            local rp == require('rose-pine')
+            local rp = require('rose-pine')
 
             rp.setup({
-                disable_background = true
+                disable_background = true,
             })
 
             vim.cmd("colorscheme rose-pine")

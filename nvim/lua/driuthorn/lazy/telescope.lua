@@ -4,7 +4,6 @@ return {
      dependencies = { 
             "plenary"
      },
-
      config = function()
         local builtin = require("telescope.builtin")
 

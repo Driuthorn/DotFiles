@@ -1,6 +1,6 @@
 return {
     'tpope/vim-fugitive',
-
+    name = "fugitive",
     config = function()
        vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
        vim.keymap.set('n', "<leader>gl", function ()
@@ -10,7 +10,7 @@ return {
        local Driuthorn_Fugitive = vim.api.nvim_create_augroup("Driuthorn_Fugitive", {})
 
        local autocmd = vim.api.nvim_create_autocmd
-       
+
        autocmd("BufWinEnter", {
            group = Driuthorn_Fugitive,
            pattern = "*",
@@ -35,7 +35,7 @@ return {
                 end, opts)
 
                 vim.keymap.set("n", "<leader>P", function()
-                    vim.cmd.Git({'pull', '--rebase'})
+                    vim.cmd.Git({'pull --rebase'})
                 end,opts)
            end,
        })

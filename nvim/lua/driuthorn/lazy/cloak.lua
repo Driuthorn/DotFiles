@@ -1,6 +1,6 @@
 return {
     "laytan/cloak.nvim",
-
+    name = "cloak",
     config = function()
         local cloak = require("cloak")
 
