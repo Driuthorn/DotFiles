@@ -62,46 +62,44 @@ return {
             local color = "#"
 
             for i = 2, 6, 2 do
-                local v1 = h2d(string.sub(color_1, i, i+1))
-                local v2 = h2d(string.sub(color_2, i, i+1))
+                local v1 = h2d(string.sub(color_1, i, i + 1))
+                local v2 = h2d(string.sub(color_2, i, i + 1))
 
                 local val = d2h(math.floor(v2 + (v1 - v2) * (weight / 100.0)))
 
-                while(string.len(val) < 2) do val = '0' .. val end
+                while (string.len(val) < 2) do val = '0' .. val end
 
                 color = color .. val
-            
             end
 
             return color;
-
         end
 
         local function generate_mode_colors()
             local mode_colors = {
-                n = { colors.accent_light, colors.accent },
-                no = { colors.accent_light, colors.accent },
-                v = { colors.black, colors.yellow },
-                V      = {colors.black,         colors.yellow          },
-                [""] = {colors.black,        colors.yellow         },
-		        s      = {colors.black,        colors.orange         },
-        		S      = {colors.black,        colors.orange         },
-        		[""] = {colors.black,        colors.orange         },
-        		i      = {colors.alternate,    colors.alternate_dark },
-        		ic     = {colors.alternate,    colors.alternate_dark },
-        		ix     = {colors.alternate,    colors.alternate_dark },
-        		R      = {colors.black,        colors.green          },
-        		Rc     = {colors.black,        colors.green          },
-        		Rv     = {colors.black,        colors.green          },
-        		Rx     = {colors.black,        colors.green          },
-        		c      = {colors.white,        colors.red            },
-        		cv     = {colors.white,        colors.red            },
-        		ce     = {colors.white,        colors.red            },
-        		r      = {colors.black,        colors.cyan           },
-        		rm     = {colors.black,        colors.cyan           },
-        		["r?"] = {colors.black,        colors.cyan           },
-        		["!"]  = {colors.black,        colors.white          },
-        		t      = {colors.black,        colors.white          },
+                n      = { colors.accent_light, colors.accent },
+                no     = { colors.accent_light, colors.accent },
+                v      = { colors.black, colors.yellow },
+                V      = { colors.black, colors.yellow },
+                [""]  = { colors.black, colors.yellow },
+                s      = { colors.black, colors.orange },
+                S      = { colors.black, colors.orange },
+                [""]  = { colors.black, colors.orange },
+                i      = { colors.alternate, colors.alternate_dark },
+                ic     = { colors.alternate, colors.alternate_dark },
+                ix     = { colors.alternate, colors.alternate_dark },
+                R      = { colors.black, colors.green },
+                Rc     = { colors.black, colors.green },
+                Rv     = { colors.black, colors.green },
+                Rx     = { colors.black, colors.green },
+                c      = { colors.white, colors.red },
+                cv     = { colors.white, colors.red },
+                ce     = { colors.white, colors.red },
+                r      = { colors.black, colors.cyan },
+                rm     = { colors.black, colors.cyan },
+                ["r?"] = { colors.black, colors.cyan },
+                ["!"]  = { colors.black, colors.white },
+                t      = { colors.black, colors.white },
             }
 
             local full_table = {}
@@ -153,7 +151,7 @@ return {
             if line == 0 then
                 return ""
             end
-            
+
             return string.format("%d", line)
         end
 
@@ -168,14 +166,13 @@ return {
             })
 
             return vim.v.hlsearch == 1 and search_count.total > 0
-
         end
 
         local function validFiletype(filetype)
             if filetype == "netrw" or filetype == '' then
                 return false
             else
-                for index, data in ipairs(lazyPlugins)  do
+                for index, data in ipairs(lazyPlugins) do
                     if data.name == filetype then
                         return false
                     end
@@ -188,30 +185,30 @@ return {
         gls.left[1] = {
             ViMode = {
                 provider = function()
-                   local alias = {
-                            n = "NORMAL",
-         	        		no = "N OPERATOR",
-         	        		v = "VISUAL",
-         	        		V = "V LINE",
-         	        		[""] = "V BLOCK",
-         	        		s = "SELECT",
-         	        		S = "S LINE",
-         	        		[""] = "S BLOCK",
-         	        		i = "INSERT",
-         	        		ic = "I COMPLETION",
-         	        		ix = "I X COMP",
-         	        		R = "REPLACE",
-         	        		Rc = "R COMPLETION",
-         	        		Rv = "R VIRTUAL",
-         	        		Rx = "R X COMP",
-         	        		c = "COMMAND",
-         	        		cv = "EX",
-         	        		r = "PROMPT",
-         	        		rm = "MORE",
-         	        		["r?"] = "CONFIRM",
-         	        		["!"] = "EXT COMMAND",
-         	        		t = "TERMINAL",
-                   }
+                    local alias = {
+                        n = "NORMAL",
+                        no = "N OPERATOR",
+                        v = "VISUAL",
+                        V = "V LINE",
+                        [""] = "V BLOCK",
+                        s = "SELECT",
+                        S = "S LINE",
+                        [""] = "S BLOCK",
+                        i = "INSERT",
+                        ic = "I COMPLETION",
+                        ix = "I X COMP",
+                        R = "REPLACE",
+                        Rc = "R COMPLETION",
+                        Rv = "R VIRTUAL",
+                        Rx = "R X COMP",
+                        c = "COMMAND",
+                        cv = "EX",
+                        r = "PROMPT",
+                        rm = "MORE",
+                        ["r?"] = "CONFIRM",
+                        ["!"] = "EXT COMMAND",
+                        t = "TERMINAL",
+                    }
 
                     local mode = vim.fn.mode()
                     local c = mode_colors[mode]
@@ -229,25 +226,24 @@ return {
                     highlight("GalaxyMidText", c.dim_fg, c.dimmer_bg)
 
                     highlight("GalaxySection1", c.main_fg, c.main_bg)
-			        highlight("GalaxySection1Edge", c.main_bg, c.dim_bg)
-			        highlight("GalaxySection2", c.dim_fg, c.dim_bg)
-			        highlight("GalaxySection2Bright", colors.white, c.dim_bg)
-			        highlight("GalaxySection2Edge", c.dim_bg, c.dimmer_bg)
+                    highlight("GalaxySection1Edge", c.main_bg, c.dim_bg)
+                    highlight("GalaxySection2", c.dim_fg, c.dim_bg)
+                    highlight("GalaxySection2Bright", colors.white, c.dim_bg)
+                    highlight("GalaxySection2Edge", c.dim_bg, c.dimmer_bg)
 
-			        highlight("GalaxyViMode", c.main_fg, c.main_bg, "bold")
+                    highlight("GalaxyViMode", c.main_fg, c.main_bg, "bold")
 
                     if validFiletype(vim.bo.filetype) then
-    			        highlight("GalaxyFileIcon", fileinfo.get_file_icon_color(), c.dimmer_bg)
+                        highlight("GalaxyFileIcon", fileinfo.get_file_icon_color(), c.dimmer_bg)
                     end
 
                     highlight("GalaxyEditIcon", colors.red, c.dimmer_bg)
 
                     return '  ' .. alias[vim.fn.mode()] .. ' '
-
                 end,
                 separator = "",
-        		separator_highlight = "GalaxySection1Edge",
-        		highlight = "GalaxySection1",
+                separator_highlight = "GalaxySection1Edge",
+                highlight = "GalaxySection1",
             }
         }
 
@@ -323,8 +319,8 @@ return {
                     end
                 end,
                 highlight = "GalaxyEditIcon"
-                }
             }
+        }
 
         gls.mid[4] = {
             FileSize = {
@@ -356,7 +352,7 @@ return {
                 highlight = "GalaxyTrailingEdge",
             }
         }
-        
+
         gls.right[7] = {
             Search = {
                 provider = function()
@@ -394,24 +390,30 @@ return {
                 separator_highlight = "GalaxyInnerSeparator1"
             }
         }
-       
+
         gls.right[4] = {
             LineColumn = {
                 provider = function()
                     local mode = vim.fn.mode()
-                    if mode == 'v' or mode == 'V' or mode ==  "" then
+                    if mode == 'v' or mode == 'V' or mode == "" then
                         local lstart = vim.fn.line("v")
                         local lend = vim.fn.line(".")
-				        local cstart = vim.fn.col("v")
-				        local cend = vim.fn.col(".")
-				        return '  ' .. lstart .. ':' .. lend .. '/' .. vim.fn.line('$') .. '  ' .. cstart .. ':' .. cend .. '/' .. vim.fn.col('$') .. ' '
+                        local cstart = vim.fn.col("v")
+                        local cend = vim.fn.col(".")
+                        return '  ' ..
+                        lstart ..
+                        ':' ..
+                        lend ..
+                        '/' .. vim.fn.line('$') .. '  ' .. cstart .. ':' .. cend .. '/' .. vim.fn.col('$') .. ' '
                     else
-                        return '  ' .. vim.fn.line(".") .. '/' .. vim.fn.line('$') .. '  ' .. vim.fn.col(".") .. '/' .. vim.fn.col('$') .. ' '
+                        return '  ' ..
+                        vim.fn.line(".") ..
+                        '/' .. vim.fn.line('$') .. '  ' .. vim.fn.col(".") .. '/' .. vim.fn.col('$') .. ' '
                     end
                 end,
                 highlight = "GalaxySection1",
-		        separator = "",
-		        separator_highlight = "GalaxySection1Edge",
+                separator = "",
+                separator_highlight = "GalaxySection1Edge",
             }
         }
 
@@ -454,10 +456,9 @@ return {
                     end
                 end,
                 highlight = "GalaxySection2",
-		        separator = "",
-		        separator_highlight = "GalaxySection2Edge",
+                separator = "",
+                separator_highlight = "GalaxySection2Edge",
             }
         }
-
     end
 }

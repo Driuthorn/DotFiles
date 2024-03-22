@@ -9,6 +9,6 @@ return {
             json = 'jq',
         }
 
-      vim.keymap.set("n", "<leader>xr", ":call VrcQuery()")
+        vim.keymap.set("n", "<leader>xr", ":call VrcQuery()")
     end
 }

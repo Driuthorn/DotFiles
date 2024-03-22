@@ -7,8 +7,9 @@ function ColorMyPencils(color)
 end
 
 return {
-    { "folke/tokyonight.nvim",
-        config = function() 
+    {
+        "folke/tokyonight.nvim",
+        config = function()
             local tn = require("tokyonight")
             tn.setup({
                 style = "storm",
@@ -23,9 +24,10 @@ return {
             })
         end
     },
-    { "rose-pine/neovim", 
+    {
+        "rose-pine/neovim",
         name = "rose-pine",
-        config = function() 
+        config = function()
             local rp = require('rose-pine')
 
             rp.setup({

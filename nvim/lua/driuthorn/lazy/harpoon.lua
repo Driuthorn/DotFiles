@@ -2,7 +2,6 @@ return {
     'ThePrimeagen/harpoon',
     branch = "harpoon2",
     requires = { "plenary" },
-
     config = function()
         local harpoon = require("harpoon")
 
