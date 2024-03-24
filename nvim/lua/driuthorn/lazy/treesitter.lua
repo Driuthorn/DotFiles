@@ -7,7 +7,26 @@ return {
 
         cfg.setup {
             -- A list of parser names, or "all" (the five listed parsers should always be installed)
-            ensure_installed = { "javascript", "typescript", "c", "lua", "vim", "vimdoc", "query", "json", "yaml" },
+            ensure_installed = {
+                "javascript",
+                "typescript",
+                "c",
+                "lua",
+                "vim",
+                "vimdoc",
+                "query",
+                "json",
+                "yaml",
+                "angular",
+                "html",
+                "python",
+                "sql",
+                "terraform",
+                "tmux",
+                "toml",
+                "tsx",
+                "rust",
+            },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
@@ -16,9 +35,9 @@ return {
             -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
             auto_install = true,
 
-            indent = {
-                enable = true,
-            },
+            -- indent = {
+            --     enable = true,
+            -- },
 
             highlight = {
                 enable = true,
