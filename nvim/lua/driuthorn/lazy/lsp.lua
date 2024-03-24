@@ -9,6 +9,7 @@ return {
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
         'hrsh7th/nvim-cmp',
+        'hrsh7th/cmp-nvim-lsp-signature-help',
         'L3MON4D3/LuaSnip',
         'saadparwaiz1/cmp_luasnip',
         'j-hui/fidget.nvim',
@@ -65,18 +66,63 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+                ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+                ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+                -- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
+                ['<CR>'] = cmp.mapping.confirm({
+                    behavior = cmp.ConfirmBehavior.Insert,
+                    select = true
+                }),
             }),
             sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' },
+                { name = 'path' },
+                { name = 'nvim_lsp',               keyword_length = 3 },
+                { name = 'luasnip',                keyword_length = 2 },
+                { name = 'nvim_lsp_signature_help' },
+                { name = 'nvim_lua',               keyword_length = 2 },
             }, {
-                { name = 'buffer' },
-            })
+                { name = 'buffer', keyword_length = 2 },
+                { name = 'calc' },
+            }),
+            window = {
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered(),
+            },
+            formatting = {
+                fields = { 'menu', 'abbr', 'kind' },
+                format = function(entry, item)
+                    local menu_icon = {
+                        nvim_lsp = 'λ',
+                        buffer = 'Ω',
+                        path = '🖫',
+                    }
+
+                    item.menu = menu_icon[entry.source.name]
+                    return item
+                end
+            }
         })
 
+        local sign = function(opts)
+            vim.fn.sign_define(opts.name, {
+                texthl = opts.name,
+                text = opts.text,
+                numhl = ''
+            })
+        end
+
+        sign({ name = 'DiagnosticSignError', text = '' })
+        sign({ name = 'DiagnosticSignWarn', text = '' })
+        sign({ name = 'DiagnosticSignHint', text = '' })
+        sign({ name = 'DiagnosticSignInfo', text = '' })
+
         vim.diagnostic.config({
+            virtual_text = false,
+            signs = true,
+            update_in_insert = true,
+            underline = true,
+            severity_sort = false,
             float = {
                 focusable = false,
                 style = "minimal",
