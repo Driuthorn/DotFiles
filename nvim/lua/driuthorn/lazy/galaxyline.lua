@@ -233,9 +233,9 @@ return {
 
                     highlight("GalaxyViMode", c.main_fg, c.main_bg, "bold")
 
-                    if validFiletype(vim.bo.filetype) then
-                        highlight("GalaxyFileIcon", fileinfo.get_file_icon_color(), c.dimmer_bg)
-                    end
+--                    if validFiletype(vim.bo.filetype) then
+--                        highlight("GalaxyFileIcon", fileinfo.get_file_icon_color(), c.dimmer_bg)
+--                    end
 
                     highlight("GalaxyEditIcon", colors.red, c.dimmer_bg)
 
