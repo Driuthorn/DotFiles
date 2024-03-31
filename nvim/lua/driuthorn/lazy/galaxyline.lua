@@ -219,7 +219,7 @@ return {
         gls.left[2] = {
             Git = {
                 provider = function()
-                    if (condition.check_git_workspace()) then
+                    if (condition.check_git_workspace() and not vim.bo.readonly) then
                         local gitIcon = '  '
                         local branch = vcs.get_git_branch() .. ' '
 
