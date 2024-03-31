@@ -1,13 +1,14 @@
 return {
     'glepnir/galaxyline.nvim',
     branch = 'main',
-    requires = { 'nvim-web-devicons' },
+    dependencies = { 'nvim-web-devicons' },
     config = function()
-        local lazyPlugins = require('lazy').plugins()
         local gl = require("galaxyline")
         local gls = gl.section
 
         local fileinfo = require("galaxyline.provider_fileinfo")
+        local vcs = require("galaxyline.provider_vcs")
+        local condition = require("galaxyline.condition")
         local lspclient = require("galaxyline.provider_lsp")
 
         local colors = {
@@ -146,19 +147,6 @@ return {
         hi_link("GalaxyInnerSeparator1", "GalaxySection1")
         hi_link("GalaxyInnerSeparator2", "GalaxySection2")
 
-        local function search(pattern)
-            local line = vim.fn.search(pattern, "nw")
-            if line == 0 then
-                return ""
-            end
-
-            return string.format("%d", line)
-        end
-
-        local function check_trailing()
-            return search([[\s$]])
-        end
-
         local function search_results_available()
             local search_count = vim.fn.searchcount({
                 recompute = 1,
@@ -166,20 +154,6 @@ return {
             })
 
             return vim.v.hlsearch == 1 and search_count.total > 0
-        end
-
-        local function validFiletype(filetype)
-            if filetype == "netrw" or filetype == '' then
-                return false
-            else
-                for index, data in ipairs(lazyPlugins) do
-                    if data.name == filetype then
-                        return false
-                    end
-                end
-            end
-
-            return true
         end
 
         gls.left[1] = {
@@ -232,11 +206,6 @@ return {
                     highlight("GalaxySection2Edge", c.dim_bg, c.dimmer_bg)
 
                     highlight("GalaxyViMode", c.main_fg, c.main_bg, "bold")
-
---                    if validFiletype(vim.bo.filetype) then
---                        highlight("GalaxyFileIcon", fileinfo.get_file_icon_color(), c.dimmer_bg)
---                    end
-
                     highlight("GalaxyEditIcon", colors.red, c.dimmer_bg)
 
                     return '  ' .. alias[vim.fn.mode()] .. ' '
@@ -248,8 +217,26 @@ return {
         }
 
         gls.left[2] = {
-            LspServer = {
+            Git = {
                 provider = function()
+                    if (condition.check_git_workspace()) then
+                        local gitIcon = '  '
+                        local branch = vcs.get_git_branch() .. ' '
+
+                        return gitIcon .. branch
+                    else
+                        return ''
+                    end
+                end,
+                highlight = "GalaxySection2",
+                separator = "",
+                separator_highlight = "GalaxyInnerSeparator2"
+            }
+        }
+
+        gls.left[3] = {
+            LspServer = {
+                provider = function ()
                     local curr_client = lspclient.get_lsp_client()
                     if curr_client ~= "No Active Lsp" then
                         return ' ' .. curr_client .. ' '
@@ -259,17 +246,45 @@ return {
             }
         }
 
-        gls.left[3] = {
-            LspFunctionIcon = {
-                provider = function()
-                    local current_function = vim.b.lsp_current_function
-                    if current_function and current_function ~= '' then
-                        return ' '
-                    end
-                end,
-                highlight = "GalaxySection2Bright",
-            }
-        }
+        -- TODO: Show Git Status on line
+        -- gls.left[3] = {
+        --     GitStatus = {
+        --         provider = function()
+
+        --             print(vim.fn.exists('b:gitsigns_status'))
+        --             print(vcs.diff_add())
+        --             print(vcs.diff_modified())
+        --             print(vcs.diff_remove())
+
+        --             if (condition.check_git_workspace()) then
+        --                 local edit_icon = ''
+        --                 local add_icon = ''
+        --                 local rem_icon = ''
+        --                 local icons = ''
+        --                 local contains_add = vcs.diff_add()
+        --                 local contains_edit = vcs.diff_modified()
+        --                 local contains_rem = vcs.diff_remove()
+
+        --                 if contains_add then
+        --                     icons = icons .. contains_add .. add_icon .. ' '
+        --                 end
+
+        --                 if contains_edit then
+        --                     icons = icons .. contains_edit .. edit_icon .. ' '
+        --                 end
+
+        --                 if contains_rem then
+        --                     icons = icons .. contains_rem .. rem_icon .. ' '
+        --                 end
+
+        --                 return icons
+        --             else
+        --                 return ''
+        --             end
+        --         end,
+        --         highlight = "GalaxySection2",
+        --     }
+        -- }
 
         gls.left[4] = {
             LspFunction = {
@@ -297,7 +312,7 @@ return {
         gls.mid[2] = {
             CurrentFile = {
                 provider = function()
-                    local path = vim.fn.expand('%:p')
+                    local path = fileinfo.filename_in_special_buffer()
                     if not path or path == '' then
                         path = "[No Name]"
                     end
@@ -329,57 +344,6 @@ return {
             }
         }
 
-        gls.right[9] = {
-            Whitespace = {
-                provider = function()
-                    local trailing = check_trailing()
-                    if trailing ~= '' then
-                        return "  tr " .. trailing .. ' '
-                    end
-                end,
-                highlight = "GalaxyTrailing",
-            }
-        }
-
-        gls.right[8] = {
-            WhitespaceEdge = {
-                provider = function()
-                    local trailing = check_trailing()
-                    if trailing ~= '' then
-                        return ''
-                    end
-                end,
-                highlight = "GalaxyTrailingEdge",
-            }
-        }
-
-        gls.right[7] = {
-            Search = {
-                provider = function()
-                    local search_count = vim.fn.searchcount({
-                        recompute = 1,
-                        maxcount = -1,
-                    })
-                    local active_result = vim.v.hlsearch == 1 and search_count.total > 0
-                    if active_result then
-                        return '   ' .. search_count.current .. '/' .. search_count.total .. ' '
-                    end
-                end,
-                highlight = "GalaxySearchResult",
-            }
-        }
-
-        gls.right[6] = {
-            SearchEdge = {
-                provider = function()
-                    if search_results_available() then
-                        return ''
-                    end
-                end,
-                highlight = "GalaxySearchResultEdge",
-            }
-        }
-
         gls.right[5] = {
             Percent = {
                 provider = function()
@@ -387,7 +351,7 @@ return {
                 end,
                 highlight = "GalaxySection1",
                 separator = "",
-                separator_highlight = "GalaxyInnerSeparator1"
+                separator_highlight = "GalaxyInnerSeparator1",
             }
         }
 
@@ -401,14 +365,14 @@ return {
                         local cstart = vim.fn.col("v")
                         local cend = vim.fn.col(".")
                         return '  ' ..
-                        lstart ..
-                        ':' ..
-                        lend ..
-                        '/' .. vim.fn.line('$') .. '  ' .. cstart .. ':' .. cend .. '/' .. vim.fn.col('$') .. ' '
+                            lstart ..
+                            ':' ..
+                            lend ..
+                            '/' .. vim.fn.line('$') .. '  ' .. cstart .. ':' .. cend .. '/' .. vim.fn.col('$') .. ' '
                     else
                         return '  ' ..
-                        vim.fn.line(".") ..
-                        '/' .. vim.fn.line('$') .. '  ' .. vim.fn.col(".") .. '/' .. vim.fn.col('$') .. ' '
+                            vim.fn.line(".") ..
+                            '/' .. vim.fn.line('$') .. '  ' .. vim.fn.col(".") .. '/' .. vim.fn.col('$') .. ' '
                     end
                 end,
                 highlight = "GalaxySection1",
