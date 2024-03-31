@@ -12,6 +12,3 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("driuthorn.lazy")
-
--- set color theme
-vim.cmd(":color nvimgelion")

@@ -33,10 +33,26 @@ return {
             rp.setup({
                 disable_background = true,
             })
-
-            vim.cmd("colorscheme rose-pine")
-
-            ColorMyPencils()
         end
     },
+    {
+        'dracula/vim',
+        name = "dracula",
+    },
+    {
+        'nyngwang/nvimgelion',
+        config = function()
+            vim.api.nvim_create_autocmd({ 'ColorScheme', 'FileType' },
+                {
+                    callback = function()
+                        vim.cmd([[
+                hi Normal guibg=NONE ctermbg=NONE
+                hi EndOfBuffer guibg=NONE ctermbg=NONE
+              ]])
+                    end
+                })
+
+            ColorMyPencils("nvimgelion")
+        end
+    }
 }
