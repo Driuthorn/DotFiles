@@ -23,7 +23,7 @@ return {
                 local opts = { buffer = bufnr, remap = false }
 
                 vim.keymap.set("n", "<leader>p", function ()
-                    vim.cmd.Get('push')
+                    vim.cmd.Git('push')
                 end, opts)
 
                 vim.keymap.set("n", "<leader>f", function ()
