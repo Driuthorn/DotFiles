@@ -46,6 +46,29 @@ return {
                         }
                     }
                 end,
+
+                ["remark_ls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.remark_ls.setup {
+                        settings = {
+                            remark = {
+                                requireConfig = true
+                            }
+                        }
+                    }
+                end,
+
+                ["ltex"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.ltex_ls.setup {
+                        on_attach = function()
+                            vim.env.JAVA_HOME = vim.fs.find(
+                                function(name) return vim.startswith(name, "jdk-") end,
+                                { path = vim.fn.stdpath("data") .. "mason/packages/ltex-ls/", type = "directory" }
+                            )[1]
+                        end
+                    }
+                end,
             }
         })
 
