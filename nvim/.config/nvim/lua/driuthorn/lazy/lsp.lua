@@ -4,18 +4,18 @@ return {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-cmdline',
-        'hrsh7th/nvim-cmp',
-        'hrsh7th/cmp-nvim-lsp-signature-help',
-        'L3MON4D3/LuaSnip',
-        'saadparwaiz1/cmp_luasnip',
-        'j-hui/fidget.nvim',
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/nvim-cmp",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+        "j-hui/fidget.nvim",
     },
     config = function()
-        local cmp = require('cmp')
+        local cmp = require("cmp")
         local cmp_lsp = require("cmp_nvim_lsp")
         local capabilities = vim.tbl_deep_extend(
             "force",
@@ -25,18 +25,12 @@ return {
         )
 
         require("fidget").setup({})
-        require('mason').setup()
-        require('mason-lspconfig').setup({
-            ensure_installed = {
-                "lua_ls",
-                "rust_analyzer",
-                "tsserver",
-            },
+        require("mason").setup()
+        require("mason-lspconfig").setup({
+            ensure_installed = { "lua_ls", "rust_analyzer", "tsserver" },
             handlers = {
                 function(server_name)
-                    require("lspconfig")[server_name].setup {
-                        capabilities = capabilities
-                    }
+                    require("lspconfig")[server_name].setup { capabilities = capabilities }
                 end,
 
                 ["lua_ls"] = function()
@@ -50,6 +44,29 @@ return {
                                 }
                             }
                         }
+                    }
+                end,
+
+                ["remark_ls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.remark_ls.setup {
+                        settings = {
+                            remark = {
+                                requireConfig = true
+                            }
+                        }
+                    }
+                end,
+
+                ["ltex"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.ltex_ls.setup {
+                        on_attach = function()
+                            vim.env.JAVA_HOME = vim.fs.find(
+                                function(name) return vim.startswith(name, "jdk-") end,
+                                { path = vim.fn.stdpath("data") .. "mason/packages/ltex-ls/", type = "directory" }
+                            )[1]
+                        end
                     }
                 end,
             }
@@ -68,8 +85,7 @@ return {
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-                -- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-                ["<C-Space>"] = cmp.mapping.complete(),
+                ['<C-Space>'] = cmp.mapping.complete(),
                 ['<CR>'] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Insert,
                     select = true
@@ -112,17 +128,17 @@ return {
             })
         end
 
-        sign({ name = 'DiagnosticSignError', text = '' })
-        sign({ name = 'DiagnosticSignWarn', text = '' })
-        sign({ name = 'DiagnosticSignHint', text = '' })
-        sign({ name = 'DiagnosticSignInfo', text = '' })
+        sign({ name = 'DiagnosticSignError', text = ' ' })
+        sign({ name = 'DiagnosticSignWarn', text = ' ' })
+        sign({ name = 'DiagnosticSignHint', text = '' })
+        sign({ name = 'DiagnosticSignInfo', text = ' ' })
 
         vim.diagnostic.config({
             virtual_text = false,
             signs = true,
             update_in_insert = true,
             underline = true,
-            severity_sort = false,
+            serverity_sort = false,
             float = {
                 focusable = false,
                 style = "minimal",
@@ -140,8 +156,8 @@ return {
             group = Driuthorn_Lsp,
             callback = function(e)
                 local opts = { buffer = e.buf }
-                vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
 
+                vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
                 vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
                 vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
                 vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)

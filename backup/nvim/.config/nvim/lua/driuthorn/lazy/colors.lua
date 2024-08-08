@@ -9,7 +9,6 @@ end
 return {
     {
         "folke/tokyonight.nvim",
-        name = "tokyonight",
         config = function()
             local tn = require("tokyonight")
             tn.setup({
@@ -41,21 +40,7 @@ return {
         name = "dracula",
     },
     {
-        "scottmckendry/cyberdream.nvim",
-        name = "cyberdream",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("cyberdream").setup({
-                transparent = false,
-                borderless_telescope = true,
-                terminal_colors = true,
-            })
-        end
-    },
-    {
         'nyngwang/nvimgelion',
-        name = "nvimgelion",
         config = function()
             vim.api.nvim_create_autocmd({ 'ColorScheme', 'FileType' },
                 {
@@ -67,7 +52,7 @@ return {
                     end
                 })
 
-            ColorMyPencils("cyberdream")
+            ColorMyPencils("nvimgelion")
         end
     }
 }
