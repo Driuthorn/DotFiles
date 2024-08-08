@@ -1,13 +1,11 @@
 #! /usr/bin/bash
 
-set -x  # add debug
-
 try_install () {
     sudo apt-get install -y $1
 }
 
 check_and_install () {
-    configsToCheck=("nvim" "tmux" "stow")
+    configsToCheck=("nvim" "tmux" "stow" "git")
 
     for config in ${configsToCheck[@]};
     do
@@ -20,6 +18,8 @@ check_and_install () {
 }
 
 check_and_config () {
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpma
+
     stow nvim starship tmux
 }
 
