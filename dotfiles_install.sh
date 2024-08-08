@@ -1,5 +1,7 @@
 #! /usr/bin/bash
 
+set -x  # add debug
+
 try_install () {
     sudo apt-get install -y $1
 }
@@ -18,12 +20,7 @@ check_and_install () {
 }
 
 check_and_config () {
-
-    dir=$(pwd)
-    dir2=$0
-
-    echo $dir
-    echo $dir2
+    stow nvim starship tmux
 }
 
 check_and_install
