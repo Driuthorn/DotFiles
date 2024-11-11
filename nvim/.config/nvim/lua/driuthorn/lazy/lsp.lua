@@ -60,13 +60,18 @@ return {
 
                 ["ltex"] = function()
                     local lspconfig = require("lspconfig")
-                    lspconfig.ltex_ls.setup {
+                    lspconfig.ltex.setup {
                         on_attach = function()
                             vim.env.JAVA_HOME = vim.fs.find(
                                 function(name) return vim.startswith(name, "jdk-") end,
-                                { path = vim.fn.stdpath("data") .. "mason/packages/ltex-ls/", type = "directory" }
+                                { path = vim.fn.stdpath("data") .. "mason/packages/ltex/", type = "directory" }
                             )[1]
-                        end
+                        end,
+                        settings = {
+                            ltex = {
+                                language = "pt-BR,en-US"
+                            }
+                        }
                     }
                 end,
             }
