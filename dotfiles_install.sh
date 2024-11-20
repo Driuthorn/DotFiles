@@ -18,7 +18,7 @@ check_and_install () {
 }
 
 check_and_config () {
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpma
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
     stow nvim starship tmux
 }
