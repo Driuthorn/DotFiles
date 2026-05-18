@@ -1,4 +1,3 @@
-
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
@@ -42,9 +41,7 @@ vim.opt.foldenable = true
 
 vim.opt.updatetime = 50
 
-
-
 -- Treesitter folding
 
 -- vim.wo.foldmethod = 'expr'
--- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.o.foldmethod = 'expr'

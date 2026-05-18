@@ -1,3 +1,4 @@
+
 local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
@@ -5,7 +6,7 @@ vim.g.mapleader = " "
 -- restart
 vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", { desc = "Restart Neovim (:restart)" })
 
-vim.keymap.set("n", "<leader><leader>", function () vim.cmd("so") end)
+vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves lines down in visual selection" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "moves lines up in visual selection" })
