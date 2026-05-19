@@ -1,6 +1,7 @@
-vim.lsp.config( "ltex", {
-    filetypes = { 
-        "bib", 
+vim.lsp.config("ltex", {
+    cmd = { "ltex-ls" },
+    filetypes = {
+        "bib",
         "gitcommit",
         "org",
         "plaintex",
@@ -17,8 +18,8 @@ vim.lsp.config( "ltex", {
         "text"
     },
     settings = {
-        ltex= {
-            enabled = { 
+        ltex = {
+            enabled = {
                 "bibtex",
                 "gitcommit",
                 "org",

@@ -1,5 +1,4 @@
-
-local signs - {
+local signs = {
     [vim.diagnostic.severity.ERROR] = " ",
     [vim.diagnostic.severity.WARN] = " ",
     [vim.diagnostic.severity.INFO] = " ",
@@ -22,7 +21,7 @@ vim.diagnostic.config({
     },
 })
 
-vim.keymap.set("n","<leader>lx", function()
+vim.keymap.set("n", "<leader>lx", function()
     local current = vim.diagnostic.config().virtual_text
     vim.diagnostic.config({ virtual_text = not current })
 end, { desc = "Toggle LSP virtual text" })
@@ -41,14 +40,13 @@ vim.lsp.config('*', {
 vim.lsp.enable({
     "angularls",
     "bashls",
-    "html",
+    "csharp_ls",
     "jsonls",
     "ltex",
     "lua_ls",
-    "omnisharp",
+    "remark_ls",
     "rust_analyzer",
     "sqlls",
     "ts_ls",
     "yamlls",
-    "remark_ls",
 })

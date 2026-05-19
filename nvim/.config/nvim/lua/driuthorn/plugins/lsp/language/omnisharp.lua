@@ -1,4 +1,5 @@
-vim.lsp.config( "omnisharp", {
+vim.lsp.config("omnisharp", {
+    cmd = { "OmniSharp", "-z", "--hostPID", "12345",  "DotNet:enablePackageRestore=false", "--encoding", "utf-8", "--languageserver",  "dotnet" },
     filetypes = { "cs", "vb" },
     root_markers = {
         '.sln',

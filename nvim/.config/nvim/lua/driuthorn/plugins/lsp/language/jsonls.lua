@@ -1,6 +1,10 @@
-vim.lsp.config( "jsonls", {
-    filetypes = { 
-        "json", 
-        "jsonc", 
+vim.lsp.config("jsonls", {
+    cmd = { "vscode-json-language-server", "--stdio" },
+    filetypes = {
+        "json",
+        "jsonc",
+    },
+    init_options = {
+        provideFormatter = true,
     },
 })

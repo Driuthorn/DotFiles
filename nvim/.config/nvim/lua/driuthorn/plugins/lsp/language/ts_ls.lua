@@ -1,12 +1,11 @@
 vim.lsp.config("ts_ls", {
+    cmd = { "typescript-language-server", "--stdio" },
     workspace_required = false,
     filetypes = {
         "javascript",
         "javascriptreact",
-        "javascript.jsx",
         "typescript",
         "typescriptreact",
-        "typescript.tsx",
     },
     single_file_support = true,
     init_options = {

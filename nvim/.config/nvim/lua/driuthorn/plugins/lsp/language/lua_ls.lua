@@ -1,11 +1,12 @@
-vim.lsp.config( "lua_ls", {
+vim.lsp.config("lua_ls", {
+    cmd = { "lua-language-server" },
+    filetypes = { "lua" },
     settings = {
         Lua = {
             diagnostics = {
-                disable = { "missing-fields" },
+                -- disable = { "missing-fields" },
                 globals = {
                     "vim",
-                    "Snacks",
                 },
             },
             completion = {
