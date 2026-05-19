@@ -7,7 +7,7 @@ vim.pack.add({
     -- Core
     { src = "https://github.com/christoomey/vim-tmux-navigator" },
     -- { src = "" },
-    
+
     -- Git
     { src = "https://github.com/tpope/vim-fugitive" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
@@ -17,10 +17,11 @@ vim.pack.add({
 
     -- General
     { src = "https://github.com/folke/which-key.nvim" },
+    { src = "https://github.com/NStefan002/screenkey.nvim" },
     { src = "https://github.com/nvim-telescope/telescope.nvim", version = "master" },
-    { src = "https://github.com/saghen/blink.cmp", version = "1.*" },
+    { src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
     { src = "https://github.com/L3MON4D3/LuaSnip", version = "v2.4.1" },
-    -- { src = "https://github.com/"},
+    { src = "https://github.com/folke/noice.nvim" },
     -- { src = "https://github.com/"},
 
     -- Colorschema
@@ -35,14 +36,16 @@ vim.pack.add({
 
     -- Lsp
     { src = "https://github.com/mason-org/mason.nvim"},
+    { src = "https://github.com/mason-org/mason-lspconfig.nvim"},
 
 
     -- Dependencies
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/nvzone/volt" },
-    { src = "https://github.com/saghen/blink.lib" },
-
+ --   { src = "https://github.com/saghen/blink.lib" },
+    { src = "https://github.com/MunifTanjim/nui.nvim" },
+    { src = "https://github.com/rcarriga/nvim-notify" },
 })
 
 
@@ -59,7 +62,9 @@ require("driuthorn.plugins.snacks")
 
 -- General
 require("driuthorn.plugins.which-key")
+require("driuthorn.plugins.screenkey")
 require("driuthorn.plugins.telescope")
+require("driuthorn.plugins.noice")
 
 -- Pratice
 require("driuthorn.plugins.typr")
@@ -68,10 +73,10 @@ require("driuthorn.plugins.typr")
 require("driuthorn.plugins.colorschema")
 
 -- Completion
-require("driuthorn.plugins.blink")
+-- require("driuthorn.plugins.blink")
 
 -- Lsp
 require("driuthorn.plugins.lsp.mason")
 require("driuthorn.plugins.lsp.lspconfig")
 require("driuthorn.plugins.lsp.core.autocmds")
-require("driuthorn.plugins.lsp.core.language")
+require("driuthorn.plugins.lsp.language")
