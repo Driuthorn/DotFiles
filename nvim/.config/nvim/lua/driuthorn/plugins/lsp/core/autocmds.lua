@@ -20,7 +20,7 @@ autocmd("LspAttach", {
 
         opts.desc = "Show LSP implementations"
         vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-        
+
         opts.desc = "Show LSP type definitions"
         vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
@@ -38,7 +38,7 @@ autocmd("LspAttach", {
 
         opts.desc = "Show documentation for what is under cursor"
         vim.keymap.set("n", "K", "vim.lsp.buf.hover", opts)
-        
+
         opts.desc = "Restart LSP"
         vim.keymap.set("n", "<leader>rs", ":lsp restart<CR>", opts)
 
@@ -64,7 +64,7 @@ autocmd('BufWritePre', {
     command = [[%s/\s\+$//e]],
 })
 
-autocmd("FyleType", {
+autocmd('FileType', {
     pattern = "*",
     callback = function(args)
         local buf = args.buf
