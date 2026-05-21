@@ -1,4 +1,3 @@
-
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
@@ -33,13 +32,16 @@ vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
+vim.opt.foldcolumn = '1'
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
 -- vim.opt.colorcolumn = "80"
 
 vim.opt.updatetime = 50
 
-
-
 -- Treesitter folding
 
 -- vim.wo.foldmethod = 'expr'
--- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.o.foldmethod = 'expr'

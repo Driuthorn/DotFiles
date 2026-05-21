@@ -1,5 +1,6 @@
-return {
-    "christoomey/vim-tmux-navigator",
+local vtn = require("vim-tmux-navigator")
+
+vtn.setup({
     cmd = {
         "TmuxNavigateLeft",
         "TmuxNavigateDown",
@@ -14,4 +15,4 @@ return {
         { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
         { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     }
-}
+})
