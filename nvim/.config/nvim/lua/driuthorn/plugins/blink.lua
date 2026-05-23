@@ -1,10 +1,8 @@
-local blink = require("blink.cmp")
+local cmp = require('blink.cmp')
 
-blink.build():wait(60000)
-
-blink.setup({
+cmp.setup({
     fuzzy = {
-        implementation = "lua",
+        implementation = "prefer_rust_with_warning",
     },
     keymap = {
         preset = "default",
@@ -33,9 +31,6 @@ blink.setup({
         completion = {
             menu = { auto_show = true },
         },
-    },
-    source = {
-        default = { "lsp", "path", "buffer", "snippets" },
     },
     appearance = {
         use_nvim_cmp_as_default = false,

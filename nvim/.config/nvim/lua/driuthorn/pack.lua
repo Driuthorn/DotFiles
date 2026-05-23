@@ -19,7 +19,7 @@ vim.pack.add({
     { src = "https://github.com/folke/which-key.nvim" },
     { src = "https://github.com/NStefan002/screenkey.nvim" },
     { src = "https://github.com/nvim-telescope/telescope.nvim", version = "master" },
-    { src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
+    { src = "https://github.com/saghen/blink.cmp" },
     { src = "https://github.com/L3MON4D3/LuaSnip", version = "v2.4.1" },
     { src = "https://github.com/folke/noice.nvim" },
     -- { src = "https://github.com/"},
@@ -37,13 +37,17 @@ vim.pack.add({
     -- Lsp
     { src = "https://github.com/mason-org/mason.nvim"},
     { src = "https://github.com/mason-org/mason-lspconfig.nvim"},
-
+    { src = "https://github.com/hrsh7th/cmp-nvim-lsp"},
+    { src = "https://github.com/hrsh7th/cmp-buffer"},
+    { src = "https://github.com/hrsh7th/cmp-path"},
+    { src = "https://github.com/hrsh7th/cmp-cmdline"},
+    { src = "https://github.com/hrsh7th/nvim-cmp"},
 
     -- Dependencies
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/nvzone/volt" },
- --   { src = "https://github.com/saghen/blink.lib" },
+    { src = "https://github.com/saghen/blink.lib" },
     { src = "https://github.com/MunifTanjim/nui.nvim" },
     { src = "https://github.com/rcarriga/nvim-notify" },
 })
@@ -73,7 +77,8 @@ require("driuthorn.plugins.typr")
 require("driuthorn.plugins.colorschema")
 
 -- Completion
--- require("driuthorn.plugins.blink")
+require("driuthorn.plugins.blink")
+require("driuthorn.plugins.cmp")
 
 -- Lsp
 require("driuthorn.plugins.lsp.mason")

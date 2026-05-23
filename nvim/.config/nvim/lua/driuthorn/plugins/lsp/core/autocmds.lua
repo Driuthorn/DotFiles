@@ -25,7 +25,7 @@ autocmd("LspAttach", {
         vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
         opts.desc = "See available code actions"
-        vim.keymap.set({"n", "v"}, "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+        vim.keymap.set({ "n", "v" }, "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
 
         opts.desc = "Smart rename"
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
@@ -37,7 +37,7 @@ autocmd("LspAttach", {
         vim.keymap.set("n", "<leader>d", "vim.diagnostics.open_float", opts)
 
         opts.desc = "Show documentation for what is under cursor"
-        vim.keymap.set("n", "K", "vim.lsp.buf.hover", opts)
+        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
 
         opts.desc = "Restart LSP"
         vim.keymap.set("n", "<leader>rs", ":lsp restart<CR>", opts)
@@ -50,7 +50,7 @@ autocmd("LspAttach", {
 autocmd('TextYankPost', {
     group = yank_group,
     pattern = '',
-    callback = function ()
+    callback = function()
         vim.highlight.on_yank({
             higroup = 'IncSearch',
             timeout = 40,
